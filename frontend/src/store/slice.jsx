@@ -3,9 +3,9 @@ import { createSlice } from "@reduxjs/toolkit";
 // todo - status (complete, incomplete), text, id  
 const initialState = {
     todos: [
-        { id: 1, text: "Create a react app", status: "incomplete" },
-        { id: 2, text: "Create a redux app", status: "incomplete" },
-        { id: 3, text: "Create a redux toolkit app", status: "incomplete" },
+        { id: 1, text: "Create a react app", status: "incomplete", color: 'white' },
+        { id: 2, text: "Create a redux app", status: "incomplete", color: 'white' },
+        { id: 3, text: "Create a redux toolkit app", status: "incomplete", color: 'white' },
     ],
 };
 
@@ -37,8 +37,17 @@ export const todoSlice = createSlice({
                 existingTodo.status = "incomplete";
             }
         },
+        changeTodoColor: (state, action) => {
+            const id = action.payload;
+            const existingTodo = state.todos.find((todo) => todo.id === id);
+            if (existingTodo.color === "white") {
+                existingTodo.color = "red";
+            } else {
+                existingTodo.color = "white";
+            }
+        }
     },
 });
 
-export const { addToTodos, editTodos, removeFromTodos, changeTodoStatus } = todoSlice.actions;
+export const { addToTodos, editTodos, removeFromTodos, changeTodoStatus, changeTodoColor } = todoSlice.actions;
 export default todoSlice.reducer;
