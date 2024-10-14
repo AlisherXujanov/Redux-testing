@@ -1,0 +1,53 @@
+// Define variables
+$primary-color: #727272;
+$padding: 4px 12px 4px 0;
+$transition-duration: .3s;
+$scale-factor: 1.1;
+
+// Mixin for flex center alignment
+@mixin flex-center {
+    display: flex;
+    align-items: center;
+}
+
+// Mixin for hover scale effect
+@mixin hover-scale($factor) {
+    cursor: pointer;
+    transition: transform $transition-duration ease-in-out;
+
+    &:hover {
+        transform: scale($factor);
+    }
+}
+
+.todo {
+    width: 100%;
+    padding: $padding;
+    border-bottom: 1px solid $primary-color;
+    @include flex-center;
+
+    .text {
+        flex: 1;
+
+        .complete {
+            text-decoration: line-through;
+            color: $primary-color;
+        }
+    }
+
+    .edit {
+        display: flex;
+        gap: 4px;
+
+        div {
+            @include hover-scale($scale-factor);
+        }
+    }
+}
+
+@media(max-width: 380px) {
+    .todo {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

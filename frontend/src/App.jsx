@@ -1,35 +1,79 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import "./App.scss";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import Todo from "./component/Todo";
+import { addToTodos, removeFromTodos } from "./store/slice";
+import { BsPlusCircle } from "react-icons/bs";
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+  // A hook to access the redux dispatch function.
+  // This is the only way to trigger a state change.
+  const dispatch = useDispatch();
+
+  // A hook to access the redux store's state.
+  // This hook takes a selector function as an argument.
+  // The selector is called with the store state.
+  // state.todos.todos todos is the name of the reducer and the name of the variable in the initialState.
+  const todos = useSelector((state) => state.todos.todos);
+
+  // A variable used by the input field to store the text.
+  const [text, setText] = useState("");
+
+  // A function to handle the add button.
+  const handleAdd = () => {
+    // If the input field is empty, return.
+    if (text === "") {
+      return;
+    }
+
+    // Dispatch an action to add a todo.
+    dispatch(
+      addToTodos({
+        id: Math.floor(Math.random() * 1000),
+        text,
+        status: "incomplete",
+      })
+    );
+    setText(""); // Clear the input field after adding
+  };
+
+  const handleEdit = (id) => {
+    // A function to handle the edit button.
+    // Find the todo with the given id.
+    const existingTodo = todos.find((todo) => todo.id === id);
+
+    // Set the text in the input field to the text of the todo.
+    setText(existingTodo.text);
+
+    // Dispatch an action to remove the todo.
+    dispatch(removeFromTodos(id));
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="app">
+      <div className="content">
+        <div className="header">
+          <span className="title">Todo List</span>
+        </div>
+        <div className="add">
+          <input
+            value={text}
+            onChange={(event) => setText(event.target.value)}
+            type="text"
+          />
+          <button onClick={handleAdd}>
+            <BsPlusCircle />
+            <span>Add</span>
+          </button>
+        </div>
+        <div className="main">
+          {todos.map((todo) => (
+            <Todo key={todo.id} todo={todo} handleEdit={handleEdit} />
+          ))}
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    </div>
+  );
+};
 
-export default App
+export default App;
