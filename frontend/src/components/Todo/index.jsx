@@ -2,7 +2,7 @@ import "./Todo.scss";
 
 import { useDispatch } from "react-redux";
 import { BsCheckCircle, BsPencil, BsTrash } from "react-icons/bs";
-import { changeTodoStatus, removeFromTodos } from "../store/slice";
+import { changeTodoStatus, removeFromTodos } from "../../store/slice.jsx";
 
 
 // props  ===  { todo, handleEdit }

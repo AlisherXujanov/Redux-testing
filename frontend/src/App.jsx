@@ -1,9 +1,10 @@
 import "./App.scss";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Todo from "./component/Todo";
+import Todo from "./components/Todo";
 import { addToTodos, removeFromTodos } from "./store/slice";
 import { BsPlusCircle } from "react-icons/bs";
+
 
 const App = () => {
   // A hook to access the redux dispatch function.
