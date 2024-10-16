@@ -16,7 +16,7 @@ export const todoSlice = createSlice({
     reducers: {
         addToTodos: (state, action) => {
             const newTodo = action.payload;
-            state.apiTodos.push(newTodo);
+            state.apiTodos.unshift(newTodo);
         },
         editTodos: (state, action) => {
             const { id, title } = action.payload;
@@ -45,7 +45,8 @@ export const { addToTodos, editTodos, removeFromTodos, changeTodoStatus, setTodo
 
 export const fetchTodos = () => async (dispatch) => {
     const response = await fetch('https://jsonplaceholder.typicode.com/todos')
-    const data = await response.json()
+    let data = await response.json()
+    data = data.sort((a, b) => a.id - b.id)
     dispatch(setTodos(data))
     console.log(data)
 }

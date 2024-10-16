@@ -49,7 +49,7 @@ const App = () => {
     const existingTodo = todos.find((todo) => todo.id === id);
 
     // Set the text in the input field to the text of the todo.
-    setText(existingTodo.text);
+    setText(existingTodo.title);
 
     // Dispatch an action to remove the todo.
     dispatch(removeFromTodos(id));
