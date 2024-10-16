@@ -20,7 +20,7 @@ const App = () => {
   // This hook takes a selector function as an argument.
   // The selector is called with the store state.
   // state.todos.todos todos is the name of the reducer and the name of the variable in the initialState.
-  const todos = useSelector((state) => state.todos.todos);
+  const todos = useSelector((state) => state.todos.apiTodos);
 
   // A variable used by the input field to store the text.
   const [text, setText] = useState("");
@@ -36,8 +36,8 @@ const App = () => {
     dispatch(
       addToTodos({
         id: Math.floor(Math.random() * 1000),
-        text,
-        status: "incomplete",
+        title:text,
+        completed: "incomplete",
       })
     );
     setText(""); // Clear the input field after adding

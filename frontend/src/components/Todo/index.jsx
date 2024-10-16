@@ -2,7 +2,7 @@ import "./Todo.scss";
 
 import { useDispatch } from "react-redux";
 import { BsCheckCircle, BsPencil, BsTrash } from "react-icons/bs";
-import { changeTodoStatus, removeFromTodos, changeTodoColor } from "../../store/slice.jsx";
+import { changeTodoStatus, removeFromTodos } from "../../store/slice.jsx";
 
 
 // props  ===  { todo, handleEdit }
@@ -20,23 +20,15 @@ const Todo = ({ todo, handleEdit }) => {
     const handleDelete = () => {
         dispatch(removeFromTodos(todo.id));
     };
-    const handleColor = () => {
-        dispatch(changeTodoColor(todo.id));
-    };
 
     return (
         <div className="todo">
             <div className="text">
-                <span className={`${todo.status === "complete" && "complete"}`}>
-                    <span style={{ color: todo.color }}>
-                        {todo.text}
-                    </span>
+                <span className={`${todo.complete === true && "complete"}`}>
+                    {todo.title}
                 </span>
             </div>
             <div className="edit">
-                <div onClick={() => handleColor(todo.id)}>
-                    🔥
-                </div>
                 <div onClick={() => handleEdit(todo.id)}>
                     <BsPencil />
                 </div>

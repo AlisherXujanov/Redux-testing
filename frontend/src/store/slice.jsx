@@ -16,44 +16,45 @@ export const todoSlice = createSlice({
     reducers: {
         addToTodos: (state, action) => {
             const newTodo = action.payload;
-            state.todos.push(newTodo);
+            state.apiTodos.push(newTodo);
         },
         editTodos: (state, action) => {
             const { id, text } = action.payload;
-            const existingTodo = state.todos.find((todo) => todo.id === id);
+            const existingTodo = state.apiTodos.find((todo) => todo.id === id);
             if (existingTodo) {
                 existingTodo.text = text;
             }
         },
         removeFromTodos: (state, action) => {
             const id = action.payload;
-            state.todos = state.todos.filter((todo) => todo.id !== id);
+            state.apiTodos = state.apiTodos.filter((todo) => todo.id !== id);
         },
         changeTodoStatus: (state, action) => {
             const id = action.payload;
-            const existingTodo = state.todos.find((todo) => todo.id === id);
-            if (existingTodo.status === "incomplete") {
-                existingTodo.status = "complete";
-            } else {
-                existingTodo.status = "incomplete";
-            }
+            const existingTodo = state.apiTodos.find((todo) => todo.id === id);
+            existingTodo.completed = !existingTodo.completed
+            // if (existingTodo.completed === "incomplete") {
+            //     existingTodo.completed = "complete";
+            // } else {
+            //     existingTodo.completed = "incomplete";
+            // }
         },
-        changeTodoColor: (state, action) => {
-            const id = action.payload;
-            const existingTodo = state.todos.find((todo) => todo.id === id);
-            if (existingTodo.color === "white") {
-                existingTodo.color = "red";
-            } else {
-                existingTodo.color = "white";
-            }
-        },
+        // changeTodoColor: (state, action) => {
+        //     const id = action.payload;
+        //     const existingTodo = state.todos.find((todo) => todo.id === id);
+        //     if (existingTodo.color === "white") {
+        //         existingTodo.color = "red";
+        //     } else {
+        //         existingTodo.color = "white";
+        //     }
+        // },
         setTodos: (state, action) => {
             state.apiTodos = action.payload;
         }
     },
 });
 
-export const { addToTodos, editTodos, removeFromTodos, changeTodoStatus, changeTodoColor, setTodos } = todoSlice.actions;
+export const { addToTodos, editTodos, removeFromTodos, changeTodoStatus, setTodos } = todoSlice.actions;
 
 
 export const fetchTodos = () => async (dispatch) => {
