@@ -1,8 +1,8 @@
 import "./App.scss";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Todo from "./components/Todo";
-import { addToTodos, removeFromTodos } from "./store/slice";
+import { addToTodos, removeFromTodos, fetchTodos } from "./store/slice";
 import { BsPlusCircle } from "react-icons/bs";
 
 
@@ -10,6 +10,11 @@ const App = () => {
   // A hook to access the redux dispatch function.
   // This is the only way to trigger a state change.
   const dispatch = useDispatch();
+
+
+  useEffect(() => {
+    dispatch(fetchTodos())
+  }, [dispatch])
 
   // A hook to access the redux store's state.
   // This hook takes a selector function as an argument.

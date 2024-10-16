@@ -7,6 +7,7 @@ const initialState = {
         { id: 2, text: "Create a redux app", status: "incomplete", color: 'white' },
         { id: 3, text: "Create a redux toolkit app", status: "incomplete", color: 'white' },
     ],
+    apiTodos: [],
 };
 
 export const todoSlice = createSlice({
@@ -45,9 +46,21 @@ export const todoSlice = createSlice({
             } else {
                 existingTodo.color = "white";
             }
+        },
+        setTodos: (state, action) => {
+            state.apiTodos = action.payload;
         }
     },
 });
 
-export const { addToTodos, editTodos, removeFromTodos, changeTodoStatus, changeTodoColor } = todoSlice.actions;
+export const { addToTodos, editTodos, removeFromTodos, changeTodoStatus, changeTodoColor, setTodos } = todoSlice.actions;
+
+
+export const fetchTodos = () => async (dispatch) => {
+    const response = await fetch('https://jsonplaceholder.typicode.com/todos')
+    const data = await response.json()
+    dispatch(setTodos(data))
+    console.log(data)
+}
+
 export default todoSlice.reducer;
