@@ -37,7 +37,7 @@ const App = () => {
       addToTodos({
         id: Math.floor(Math.random() * 1000),
         title:text,
-        completed: "incomplete",
+        completed: false,
       })
     );
     setText(""); // Clear the input field after adding

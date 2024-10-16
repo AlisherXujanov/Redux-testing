@@ -19,10 +19,10 @@ export const todoSlice = createSlice({
             state.apiTodos.push(newTodo);
         },
         editTodos: (state, action) => {
-            const { id, text } = action.payload;
+            const { id, title } = action.payload;
             const existingTodo = state.apiTodos.find((todo) => todo.id === id);
             if (existingTodo) {
-                existingTodo.text = text;
+                existingTodo.title = title;
             }
         },
         removeFromTodos: (state, action) => {
@@ -33,21 +33,7 @@ export const todoSlice = createSlice({
             const id = action.payload;
             const existingTodo = state.apiTodos.find((todo) => todo.id === id);
             existingTodo.completed = !existingTodo.completed
-            // if (existingTodo.completed === "incomplete") {
-            //     existingTodo.completed = "complete";
-            // } else {
-            //     existingTodo.completed = "incomplete";
-            // }
         },
-        // changeTodoColor: (state, action) => {
-        //     const id = action.payload;
-        //     const existingTodo = state.todos.find((todo) => todo.id === id);
-        //     if (existingTodo.color === "white") {
-        //         existingTodo.color = "red";
-        //     } else {
-        //         existingTodo.color = "white";
-        //     }
-        // },
         setTodos: (state, action) => {
             state.apiTodos = action.payload;
         }

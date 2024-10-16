@@ -24,7 +24,7 @@ const Todo = ({ todo, handleEdit }) => {
     return (
         <div className="todo">
             <div className="text">
-                <span className={`${todo.complete === true && "complete"}`}>
+                <span className={todo.completed ? "complete" : ""}>
                     {todo.title}
                 </span>
             </div>
